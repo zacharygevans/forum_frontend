@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { store } from './redux'
 
-axios.defaults.baseURL = 'https://developerchats.com:8000/'
+axios.defaults.baseURL = 'https://api.developerchats.com/'
 const token = localStorage.getItem('token')
 const username = localStorage.getItem('username')
 if (token && username) {
