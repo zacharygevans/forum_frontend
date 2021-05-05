@@ -38,25 +38,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const classes = useStyles()
-  const { handleSubmit, register, remember } = useForm({
-    defaultValues: {
-      remember: true
-    }
-  })
+  const { handleSubmit, register } = useForm({})
   const [error, setError] = useState('')
   const history = useHistory()
 
   const onSubmit = handleSubmit(async (data) => {
-    const { username, password, remember } = data
+    const { username, password } = data
     try {
       const response = await axios.post('/login', { username, password })
       const token = response.data.token
       axios.defaults.headers.common = { Authorization: `Bearer ${token}` }
       store.dispatch({ type: 'login', payload: { username, token } })
-      if (remember) {
-        localStorage.setItem('token', token)
-        localStorage.setItem('username', username)
-      }
+      localStorage.setItem('token', token)
+      localStorage.setItem('username', username)
       history.push('/')
     } catch (error) {
       if (error.response.status === 401) {
@@ -100,13 +94,6 @@ export default () => {
             type='password'
             id='password'
             autoComplete='current-password'
-            inputRef={register}
-          />
-          <FormControlLabel
-            control={<Checkbox color='primary' />}
-            label='Remember me'
-            name='remember'
-            value={remember}
             inputRef={register}
           />
           <Button
