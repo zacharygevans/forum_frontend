@@ -38,7 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const classes = useStyles()
-  const { handleSubmit, register, remember } = useForm({})
+  const { handleSubmit, register, remember } = useForm({
+    defaultValues: {
+      remember: true
+    }
+  })
   const [error, setError] = useState('')
   const history = useHistory()
 
